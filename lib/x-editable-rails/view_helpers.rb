@@ -14,7 +14,7 @@ module X
         #   title: "title" attribute on element (defaults to placeholder)
         #   data:  "data-*" attributes on element
         #     source: a Hash of friendly display values used by input elements based on (object) value
-        #       - boolean shorthand ['Enabled', 'Disabled'] becomes { '1' => 'Enabled', '0' => 'Disabled' }
+        #       - boolean shorthand ['Enabled', 'Disabled'] becomes { 'true' => 'Enabled', 'false' => 'Disabled' }
         #       - enumerable shorthand ['Yes', 'No', 'Maybe'] becomes { 'Yes' => 'Yes', 'No' => 'No', 'Maybe' => 'Maybe' }
         #     classes: a Hash of classes to add based on the value (same format and shorthands as source)
         #   value: override the object's value
@@ -101,9 +101,9 @@ module X
         def output_value_for(value)
           value = case value
           when TrueClass
-            '1'
+            'true'
           when FalseClass
-            '0'
+            'false'
           when NilClass
             ''
           when Array
@@ -141,7 +141,7 @@ module X
         def default_source_for(value)
           case value
           when TrueClass, FalseClass
-            { '1' => 'Yes', '0' => 'No' }
+            { 'true' => 'Yes', 'false' => 'No' }
           end
         end
 
@@ -150,7 +150,7 @@ module X
           formatted_source = case value
             when TrueClass, FalseClass
               if source.is_a?(Array) && source.first.is_a?(String) && source.size == 2
-                { '1' => source[0], '0' => source[1] }
+                { 'true' => source[0], 'false' => source[1] }
               end
             else
               if source.is_a?(Array) && source.first.is_a?(String)
